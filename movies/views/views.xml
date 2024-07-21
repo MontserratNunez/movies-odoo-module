@@ -1,0 +1,62 @@
+<odoo>
+  <data>
+
+  <!-- Tree (list) view -->
+
+    <record id="movie_view_tree" model="ir.ui.view">
+      <field name="name">movie.view.tree</field>
+      <field name="model">movies.movie</field>
+      <field name="arch" type="xml">
+        <tree string="">
+          <field name="title"/>
+          <field name="year"/>
+          <field name="genre"/>
+          <field name="duration"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--  Action to open list and form view -->
+
+    <record id="movie_action" model="ir.actions.act_window">
+      <field name="name">Movie Action</field>
+      <field name="res_model">movies.movie</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="movie_view_form" model="ir.ui.view">
+      <field name="name">movie.view.form</field>
+      <field name="model">movies.movie</field>
+      <field name="arch" type="xml">
+        <form string="">
+          <sheet>
+            <group>
+              <field name="title"/>
+              <field name="punctuation" placeholder="0 to 5"/>
+              <field name="year"/>
+              <field name="director"/>
+              <field name="genre" placeholder="Choose an option"/>
+              <field name="duration" placeholder="HH:MM:SS"/>
+              <field name="review"/>
+              <field name="language"/>
+              <field name="income" placeholder="Income in millions"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Menu item -->
+
+    <menuitem
+      id="movie_menu"
+      name="Movie Record"
+      sequence="10"/>
+    <menuitem
+      id="movie_submenu"
+      name="Movie Record"
+      parent="movie_menu"
+      sequence="10"
+      action="movie_action"/>
+  </data>
+</odoo>
