@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 class Movie(models.Model):
     _name = 'movies.movie'
@@ -48,12 +49,12 @@ class Movie(models.Model):
                 parts = record.duration.split(':')
                 print(parts)
                 if len(parts) != 3:
-                    raise TypeError("La duración debe estar en formato HH:MM:SS.")
+                    raise ValidationError("La duración debe estar en formato HH:MM:SS.")
                 try:
                     hours = int(parts[0])
                     minutes = int(parts[1])
                     seconds = int(parts[2])
                     if (hours < 0) or not(0 < minutes < 60) or not(0 < seconds < 60):
-                        raise TypeError("Formato incorrecto de horas, minutos y segundos.")
-                except ValueError as exc:
-                    raise ValueError("La duración debe estar en formato numérico HH:MM:SS.") from exc
+                        raise ValidationError("Formato incorrecto de horas, minutos y segundos.")
+                except ValidationError as exc:
+                    raise ValidationError("La duración debe estar en formato numérico HH:MM:SS.") from exc
